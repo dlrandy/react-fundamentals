@@ -4,21 +4,24 @@
 import * as React from 'react'
 
 // 🐨 add type definitions for each function
-const operations = {
-  '+': (left: number, right: number): number => left + right,
-  '-': (left: number, right: number): number => left - right,
-  '*': (left: number, right: number): number => left * right,
-  '/': (left: number, right: number): number => left / right,
+type OperationFn = (left: number, right: number) => number
+type Operator = '+' | '-' | '/' | '*'
+
+const operations: Record<Operator, OperationFn> = {
+  '+': (left, right) => left + right,
+  '-': (left, right) => left - right,
+  '*': (left, right) => left * right,
+  '/': (left, right) => left / right,
 }
 
 // 🐨 create a type called CalculatorProps
 type CalculatorProps = {
-  left: number
-  operator: string
-  right: number
+  left?: number
+  operator?: keyof typeof operations
+  right?: number
 }
 // 🐨 set the type for this props argument to CalculatorProps
-function Calculator({left, operator, right}: CalculatorProps) {
+function Calculator({left = 0, operator = '+', right = 0}: CalculatorProps) {
   const result = operations[operator](left, right)
   return (
     <div>

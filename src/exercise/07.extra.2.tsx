@@ -23,6 +23,14 @@ function UsernameForm({
     event.preventDefault()
     onSubmitUsername(event.currentTarget.elements.username.value)
   }
+
+  function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
+    const {value} = event.currentTarget
+    const isLowerCase = value === value.toLowerCase()
+    setError(isLowerCase ? null : 'username must be lowercase')
+  }
+
+  const [error, setError] = React.useState<string | null>(null)
   // 🐨 get the value from the username input (using whichever method
   // you prefer from the options mentioned in the instructions)
   // 💰 For example: event.target.elements[0].value
@@ -36,9 +44,11 @@ function UsernameForm({
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="username">Username:</label>
-        <input type="text" id="username" />
+        <input type="text" id="username" onChange={handleChange} />
       </div>
-      <button type="submit">Submit</button>
+      <button disabled={Boolean(error)} type="submit">
+        Submit
+      </button>
     </form>
   )
 }
