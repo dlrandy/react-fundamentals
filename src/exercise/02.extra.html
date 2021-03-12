@@ -21,7 +21,11 @@
     // element.className = 'container' // 💰 in React, this is also called the "className" prop
 
     const element = React.createElement('div', {
-      children: 'Hello world',
+      children: [
+        React.createElement('span', null, 'Hello'),
+        ' ',
+        React.createElement('span', null, 'World'),
+      ],
       className: 'container'
     });
     // This is similar to ReactDOM.render
